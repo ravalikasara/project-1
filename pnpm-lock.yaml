@@ -8918,7 +8918,11 @@ packages:
       jest-resolve: 26.6.2
       natural-compare: 1.4.0
       pretty-format: 26.6.2
+<<<<<<< HEAD
       semver: 7.5.4
+=======
+      semver: 7.3.2
+>>>>>>> 547346ec7b1aa27688e5b0f8e986a7e54b4393a6
     dev: true
 
   /jest-util/26.6.2:
@@ -9421,7 +9425,11 @@ packages:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
     engines: {node: '>=10'}
     dependencies:
+<<<<<<< HEAD
       chalk: 4.1.2
+=======
+      chalk: 4.1.0
+>>>>>>> 547346ec7b1aa27688e5b0f8e986a7e54b4393a6
       is-unicode-supported: 0.1.0
 
   /log-update/4.0.0:
