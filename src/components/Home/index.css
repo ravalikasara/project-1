@@ -1,0 +1,184 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  padding: 50px;
+}
+
+.failure-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+.failure-img {
+  width: 560px;
+  height: 274px;
+}
+.failure-text {
+  font-family: Roboto;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 48px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-top: 10px;
+}
+.retry-button {
+  background: rgba(64, 148, 239, 1);
+  color: white;
+  width: 127px;
+  height: 48px;
+  border: none;
+  outline: none;
+  padding: 12px, 32px, 12px, 32px;
+  border-radius: 12px;
+}
+.story-container {
+  width: 1040px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+}
+.main-container {
+  display: flex;
+}
+
+.slick-container {
+  width: 1040px;
+  margin-top: 0px;
+}
+
+.logo-image {
+  border: 3.5px solid rgb(247, 107, 52);
+
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+  overflow: hidden;
+}
+
+/* You can change the CSS color to style the Next and 
+Previous Arrow buttons according to your project */
+
+.slick-prev:before,
+.slick-next:before {
+  color: black;
+}
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  width: 1040px;
+  min-height: 700px;
+}
+.warning-img {
+  height: 50px;
+  width: 50px;
+}
+.post-container {
+  width: 1040px;
+  min-height: 844px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border: 1px solid rgba(219, 219, 219, 1);
+}
+.post-profile-img {
+  height: 58px;
+  width: 58px;
+  border: 3px solid;
+
+  border: 3.5px solid rgb(247, 107, 52);
+
+  border-radius: 50px;
+}
+.post-profile-card {
+  display: flex;
+  margin: 10px;
+  flex-direction: row;
+}
+.name {
+  margin-left: 15px;
+  width: 104px;
+  height: 18px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.post-img {
+  width: 1040px;
+  height: 614px;
+}
+.link-profile {
+  color: black;
+  text-decoration: none;
+}
+.icons-button {
+  background-color: transparent;
+  outline: none;
+  margin: 10px;
+  border: none;
+  color: rgba(38, 38, 38, 1);
+}
+.likes-count {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: rgba(38, 38, 38, 1);
+  width: 68px;
+  height: 18px;
+  margin: 10px;
+  margin-left: 15px;
+}
+.post-caption {
+  color: #262626;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  margin-left: 15px;
+  margin-top: 5px;
+  line-height: 18px; /* 128.571% */
+}
+
+.username {
+  margin: 0px 15px;
+  font-weight: 500;
+  font-size: 18px;
+}
+.date {
+  width: 88px;
+  height: 18px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: rgba(152, 152, 152, 1);
+  margin-left: 15px;
+}
+.home-story-name {
+  color: rgba(38, 38, 38, 1);
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
+  width: 20px;
+  height: 24px;
+}
