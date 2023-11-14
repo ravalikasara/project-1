@@ -1,7 +1,10 @@
 import {Component} from 'react'
 
+<<<<<<< HEAD
 import {BsGrid3X3} from 'react-icons/bs'
 
+=======
+>>>>>>> 1d05b631f96fbf0a0be79cfd4d1a54966c87eb47
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import Header from '../Header'
@@ -28,6 +31,7 @@ class MyProfile extends Component {
     }
     const response = await fetch(ApiUrl, options)
     const data = await response.json()
+<<<<<<< HEAD
 
     if (response.ok) {
       const rawProfileData = data.profile
@@ -48,6 +52,22 @@ class MyProfile extends Component {
     } else {
       this.setState({status: 'FAILURE'})
     }
+=======
+    const rawProfileData = data.profile
+    const profileData = {
+      followersCount: rawProfileData.followers_count,
+      followingCount: rawProfileData.following_count,
+      id: rawProfileData.id,
+      posts: rawProfileData.posts,
+      postsCount: rawProfileData.posts_count,
+      profilePic: rawProfileData.profile_pic,
+      stories: rawProfileData.stories,
+      userBio: rawProfileData.user_bio,
+      userId: rawProfileData.user_id,
+      username: rawProfileData.user_name,
+    }
+    this.setState({profileData, status: 'SUCCESS'})
+>>>>>>> 1d05b631f96fbf0a0be79cfd4d1a54966c87eb47
   }
 
   renderProfileLoading = () => (
@@ -56,6 +76,7 @@ class MyProfile extends Component {
     </div>
   )
 
+<<<<<<< HEAD
   renderNoPostsView = () => (
     <div className="profile-no-posts">
       <img
@@ -155,6 +176,8 @@ class MyProfile extends Component {
     </div>
   )
 
+=======
+>>>>>>> 1d05b631f96fbf0a0be79cfd4d1a54966c87eb47
   renderProfile = () => {
     const {status} = this.state
 
