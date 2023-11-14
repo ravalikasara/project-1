@@ -141,6 +141,7 @@ class Home extends Component {
               return (
                 <li className="slick-item" key={storyUrl}>
                   <img className="logo-image" src={storyUrl} alt="user story" />
+                  <p className="home-story-name">{userId}</p>
                 </li>
               )
             })}
@@ -228,6 +229,7 @@ class Home extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
+    console.log(data)
   }
 
   renderPostSuccessView = () => {
@@ -331,7 +333,7 @@ class Home extends Component {
       <>
         <Header />
         <div className="home-container">
-          {this.renderStories()}
+          <div className="story-container">{this.renderStories()}</div>
           <div className="posts-container">{this.renderPost()}</div>
         </div>
       </>

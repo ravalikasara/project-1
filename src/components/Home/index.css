@@ -38,6 +38,12 @@
   padding: 12px, 32px, 12px, 32px;
   border-radius: 12px;
 }
+.story-container {
+  width: 1040px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+}
 .main-container {
   display: flex;
 }
@@ -48,10 +54,9 @@
 }
 
 .logo-image {
-  margin: 0px 10px;
+  border-radius: 50%;
   height: 70px;
   width: 70px;
-  border-radius: 50px;
 }
 
 /* You can change the CSS color to style the Next and 
@@ -69,7 +74,6 @@ Previous Arrow buttons according to your project */
   margin-top: 50px;
   width: 1040px;
   min-height: 700px;
-  border: 1px solid rgba(219, 219, 219, 1);
 }
 .warning-img {
   height: 50px;
@@ -88,21 +92,8 @@ Previous Arrow buttons according to your project */
   width: 58px;
   border: 3px solid;
 
-  border: 3px solid;
+  border: 3.5px solid rgb(247, 107, 52);
 
-  background: linear-gradient(
-    314.35deg,
-    #e20337 6.03%,
-    #c60188 40.88%,
-    #7700c3 73.23%
-  );
-
-  border-image-source: linear-gradient(
-    314.35deg,
-    #e20337 6.03%,
-    #c60188 40.88%,
-    #7700c3 73.23%
-  );
   border-radius: 50px;
 }
 .post-profile-card {
@@ -176,4 +167,31 @@ Previous Arrow buttons according to your project */
   text-align: left;
   color: rgba(152, 152, 152, 1);
   margin-left: 15px;
+}
+.home-story-name {
+  color: rgba(38, 38, 38, 1);
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
+  width: 20px;
+  height: 24px;
+}
+.search-not-found-desc {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0em;
+  text-align: center;
+  width: 329px;
+  height: 32px;
+  margin-top: 10px;
+  color: rgba(152, 152, 152, 1);
+}
+.search-not-found-img {
+  height: 500px;
+  width: 409px;
 }
