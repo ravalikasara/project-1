@@ -11,74 +11,40 @@ import {BiShareAlt} from 'react-icons/bi'
 import {FcLike} from 'react-icons/fc'
 import {FaRegComment} from 'react-icons/fa'
 
-import Slider from 'react-slick'
-
-import Header from '../Header'
-import SearchResult from '../SearchResult'
 import InstaContext from '../../Context/InstaContext'
 
 import './index.css'
 
-class Home extends Component {
+class SearchResult extends Component {
   state = {
-    stories: [],
     posts: [],
 
-    status: 'INITIAL',
-    postStatus: 'INITIAL',
+    resultStatus: 'INITIAL',
   }
 
   componentDidMount() {
-    this.getStories()
-    this.getPost()
+    const {searchInput} = this.context
+    this.getSearchResult(searchInput)
   }
 
-  getStories = async () => {
+  getSearchResult = async input => {
     this.setState({
-      status: 'LOADING',
+      resultStatus: 'LOADING',
     })
-
     const jwtToken = Cookies.get('jwt_token')
 
-    const apiUrl = `https://apis.ccbp.in/insta-share/stories`
+    const apiUrl = `https://apis.ccbp.in/insta-share/posts?search=${input}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
       },
       method: 'GET',
     }
+
     const response = await fetch(apiUrl, options)
+    const rawData = await response.json()
+
     if (response.ok) {
-      const fetchedData = await response.json()
-      const usersData = fetchedData.users_stories
-      const data = usersData.map(each => ({
-        userId: each.user_id,
-        username: each.user_name,
-        storyUrl: each.story_url,
-      }))
-
-      this.setState({status: 'SUCCESS', stories: data})
-    } else {
-      this.setState({status: 'FAILURE'})
-    }
-  }
-
-  getPost = async () => {
-    this.setState({
-      postStatus: 'LOADING',
-    })
-    const jwtToken = Cookies.get('jwt_token')
-
-    const apiUrl = `https://apis.ccbp.in/insta-share/posts`
-    const options = {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
-      method: 'GET',
-    }
-    const response = await fetch(apiUrl, options)
-    if (response.ok) {
-      const rawData = await response.json()
       const rawPosts = rawData.posts
       const posts = rawPosts.map(each => ({
         comments: each.comments,
@@ -91,96 +57,33 @@ class Home extends Component {
         username: each.user_name,
         isLiked: false,
       }))
-      this.setState({posts, postStatus: 'SUCCESS'})
+      this.setState({posts, resultStatus: 'SUCCESS'})
     } else {
-      this.setState({postStatus: 'FAILURE'})
+      this.setState({resultStatus: 'FAILURE'})
     }
   }
 
-  renderLoadingForStories = () => (
-    <div testid="loader">
+  renderLoadingSearchResults = () => (
+    <div data-test-id="Loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
 
-  renderLoadingForPosts = () => (
-    <div testid="loader">
-      <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
-    </div>
-  )
-
-  renderFailureView = () => (
-    <div>
+  renderSearchResultFailureView = () => (
+    <div className="failure-container">
       <img
         src="https://res.cloudinary.com/du6aueulp/image/upload/v1699689961/tgr3k1fh3luixvqn37n4.png"
         alt="failure view"
+        className="failure-img"
       />
-      <h1>Something went wrong. Please try again</h1>
-      <button type="button" onClick={this.getStories}>
+      <h1 className="failure-text">Something went wrong. Please try again</h1>
+      <button type="button" onClick={this.getStories} className="retry-button">
         Try Again
       </button>
     </div>
   )
 
-  renderStorySuccessView = () => {
-    const {stories} = this.state
-    const settings = {
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 7,
-      slidesToScroll: 1,
-    }
-
-    return (
-      <div className="main-container">
-        <ul className="slick-container">
-          {' '}
-          <Slider {...settings}>
-            {stories.map(eachLogo => {
-              const {userId, storyUrl, username} = eachLogo
-              return (
-                <li className="slick-item" key={userId}>
-                  <img className="logo-image" src={storyUrl} alt="user story" />
-                  <p className="home-story-name">{username}</p>
-                </li>
-              )
-            })}
-          </Slider>
-        </ul>
-      </div>
-    )
-  }
-
-  renderStories = () => {
-    const {status} = this.state
-
-    switch (status) {
-      case 'LOADING':
-        return this.renderLoadingForStories()
-      case 'SUCCESS':
-        return this.renderStorySuccessView()
-      case 'FAILURE':
-        return this.renderFailureView()
-      default:
-        return null
-    }
-  }
-
-  renderPostFailureView = () => (
-    <div>
-      <img
-        src="https://res.cloudinary.com/du6aueulp/image/upload/v1699689973/pesho6ybcplhphvnquxk.png"
-        alt="failure view"
-      />
-      <h1> Something went wrong. Please try again</h1>
-      <button type="button" onClick={this.getPost}>
-        Try Again
-      </button>
-    </div>
-  )
-
-  onLike = (pid, likeStatus) => {
+  onSearchLike = (pid, likeStatus) => {
     const {posts} = this.state
     const newData = posts.map(each => {
       if (each.postId === pid) {
@@ -212,10 +115,10 @@ class Home extends Component {
       return each
     })
     this.setState({posts: newData})
-    this.setLikeStatus(pid, likeStatus)
+    this.setSearchLikeStatus(pid, likeStatus)
   }
 
-  setLikeStatus = async (pid, isLiked) => {
+  setSearchLikeStatus = async (pid, isLiked) => {
     const url = `https://apis.ccbp.in/insta-share/posts/${pid}/like`
     const jwtToken = Cookies.get('jwt_token')
     const userDetails = {like_status: !isLiked}
@@ -232,15 +135,29 @@ class Home extends Component {
     console.log(data)
   }
 
-  renderPostSuccessView = () => {
+  noSearchResultview = () => (
+    <div className="search-container">
+      <img
+        src="https://res.cloudinary.com/du6aueulp/image/upload/v1699950516/xjjuhai0w1dsw8nh8eho.png"
+        alt="search not found"
+        className="search-not-found-img"
+      />
+      <h1 className="search-not-found">Search Not Found</h1>
+      <p className="search-not-found-desc">
+        Try different keyword or search again
+      </p>
+    </div>
+  )
+
+  renderSearchResultPostSuccessView = () => {
     const {posts} = this.state
-    return (
-      <ul>
+    return posts.length > 0 ? (
+      <div>
         {posts.map(each => {
           const {postDetails, comments} = each
 
           return (
-            <li className="post-container" key={each.postId}>
+            <div className="post-container" key={each.postId}>
               <div className="post-profile-card">
                 <img
                   className="post-profile-img"
@@ -248,7 +165,6 @@ class Home extends Component {
                   alt="post author profile"
                 />
                 <Link className="link-profile" to={`/users/${each.userId}`}>
-                  {' '}
                   <p className="name">{each.username}</p>
                 </Link>
               </div>
@@ -260,29 +176,29 @@ class Home extends Component {
               <div className="post-profile-card">
                 {each.isLiked ? (
                   <button
-                    onClick={() => this.onLike(each.postId, each.likeStatus)}
+                    onClick={() => this.onSearchLike(each.postId, each.isLiked)}
                     aria-label="Search"
                     type="button"
-                    testid="unLikeIcon"
                     className="icons-button"
                   >
                     <FcLike />
                   </button>
                 ) : (
                   <button
-                    onClick={() => this.onLike(each.postId, each.likeStatus)}
+                    onClick={() => this.onSearchLike(each.postId, each.isLiked)}
                     aria-label="Search"
                     type="button"
-                    testid="likeIcon"
+                    data-test-id="likeIcon"
                     className="icons-button"
                   >
-                    <BsHeart />
+                    <BsHeart />{' '}
                   </button>
                 )}
 
                 <button
                   aria-label="Search"
                   type="button"
+                  data-test-id="unLikeIcon"
                   className="icons-button"
                 >
                   <FaRegComment />
@@ -306,23 +222,25 @@ class Home extends Component {
                 {comments[1].comment}
               </p>
               <p className="date">{each.createdAt}</p>
-            </li>
+            </div>
           )
         })}
-      </ul>
+      </div>
+    ) : (
+      this.noSearchResultview()
     )
   }
 
-  renderPost = () => {
-    const {postStatus} = this.state
+  renderSearchResultPost = () => {
+    const {resultStatus} = this.state
 
-    switch (postStatus) {
+    switch (resultStatus) {
       case 'LOADING':
-        return this.renderLoadingForPosts()
+        return this.renderLoadingSearchResults()
       case 'SUCCESS':
-        return this.renderPostSuccessView()
+        return this.renderSearchResultPostSuccessView()
       case 'FAILURE':
-        return this.renderPostFailureView()
+        return this.renderSearchResultFailureView()
       default:
         return null
     }
@@ -331,25 +249,18 @@ class Home extends Component {
   render() {
     return (
       <InstaContext.Consumer>
-        {value => {
-          const {searchStatus} = value
-          return (
-            <>
-              <Header />
-              {searchStatus ? (
-                <SearchResult />
-              ) : (
-                <div className="home-container">
-                  <div className="story-container">{this.renderStories()}</div>
-                  <div className="posts-container">{this.renderPost()}</div>
-                </div>
-              )}
-            </>
-          )
-        }}
+        {value => (
+          <div className="home-container">
+            <div className="posts-container">
+              {this.renderSearchResultPost()}
+            </div>
+          </div>
+        )}
       </InstaContext.Consumer>
     )
   }
 }
 
-export default Home
+SearchResult.contextType = InstaContext
+
+export default SearchResult

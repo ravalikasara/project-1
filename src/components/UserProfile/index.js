@@ -6,6 +6,10 @@ import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import Header from '../Header'
 
+import InstaContext from '../../Context/InstaContext'
+
+import SearchResult from '../SearchResult'
+
 import './index.css'
 
 class UserProfile extends Component {
@@ -54,7 +58,7 @@ class UserProfile extends Component {
   }
 
   renderUserProfileLoading = () => (
-    <div className="user-profile-loader-container" data-testid="loader">
+    <div className="user-profile-loader-container" testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -115,7 +119,7 @@ class UserProfile extends Component {
 
         <ul className="user-profile-stories-card">
           {userData.stories.map(each => (
-            <li className="user-profile-story">
+            <li key={each.userId} className="user-profile-story">
               <img
                 src={each.image}
                 alt="user story"
@@ -174,10 +178,23 @@ class UserProfile extends Component {
 
   render() {
     return (
-      <>
-        <Header />
-        <div className="user-profile-container">{this.renderUserProfile()}</div>
-      </>
+      <InstaContext.Consumer>
+        {value => {
+          const {searchStatus} = value
+          return (
+            <>
+              <Header />
+              {searchStatus ? (
+                <SearchResult />
+              ) : (
+                <div className="user-profile-container">
+                  {this.renderUserProfile()}
+                </div>
+              )}
+            </>
+          )
+        }}
+      </InstaContext.Consumer>
     )
   }
 }

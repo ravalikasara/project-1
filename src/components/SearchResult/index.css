@@ -1,0 +1,23 @@
+.search-container {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  width: 1440px;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-not-found {
+  width: 500px;
+  height: 409px;
+}
+.search-not-found {
+  font-family: Roboto;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 48px;
+  letter-spacing: 0em;
+  text-align: center;
+  width: 256px;
+  height: 48px;
+}
