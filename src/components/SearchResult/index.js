@@ -64,7 +64,7 @@ class SearchResult extends Component {
   }
 
   renderLoadingSearchResults = () => (
-    <div data-test-id="Loader">
+    <div testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -76,8 +76,8 @@ class SearchResult extends Component {
         alt="failure view"
         className="failure-img"
       />
-      <h1 className="failure-text">Something went wrong. Please try again</h1>
-      <button type="button" onClick={this.getStories} className="retry-button">
+      <p className="failure-text">Something went wrong. Please try again</p>
+      <button type="button" onClick={this.getSearchResult}>
         Try Again
       </button>
     </div>
@@ -151,83 +151,93 @@ class SearchResult extends Component {
 
   renderSearchResultPostSuccessView = () => {
     const {posts} = this.state
-    return posts.length > 0 ? (
+    return (
       <div>
-        {posts.map(each => {
-          const {postDetails, comments} = each
+        <h1>Search Results</h1>
+        {posts.length > 0 ? (
+          <div>
+            {posts.map(each => {
+              const {postDetails, comments} = each
 
-          return (
-            <div className="post-container" key={each.postId}>
-              <div className="post-profile-card">
-                <img
-                  className="post-profile-img"
-                  src={each.profilePic}
-                  alt="post author profile"
-                />
-                <Link className="link-profile" to={`/users/${each.userId}`}>
-                  <p className="name">{each.username}</p>
-                </Link>
-              </div>
-              <img
-                className="post-img"
-                src={postDetails.image_url}
-                alt="post"
-              />
-              <div className="post-profile-card">
-                {each.isLiked ? (
-                  <button
-                    onClick={() => this.onSearchLike(each.postId, each.isLiked)}
-                    aria-label="Search"
-                    type="button"
-                    className="icons-button"
-                  >
-                    <FcLike />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => this.onSearchLike(each.postId, each.isLiked)}
-                    aria-label="Search"
-                    type="button"
-                    data-test-id="likeIcon"
-                    className="icons-button"
-                  >
-                    <BsHeart />{' '}
-                  </button>
-                )}
+              return (
+                <div className="post-container" key={each.postId}>
+                  <div className="post-profile-card">
+                    <img
+                      className="post-profile-img"
+                      src={each.profilePic}
+                      alt="post author profile"
+                    />
+                    <Link to={`/users/${each.userId}`}>
+                      <p className="name">{each.username}</p>
+                    </Link>
+                  </div>
+                  <img
+                    className="post-img"
+                    src={postDetails.image_url}
+                    alt="post"
+                  />
+                  <div className="post-profile-card">
+                    {each.isLiked ? (
+                      <button
+                        onClick={() =>
+                          this.onSearchLike(each.postId, each.isLiked)
+                        }
+                        aria-label="Search"
+                        type="button"
+                        testid="unLikeIcon"
+                        className="icons-button"
+                      >
+                        <FcLike />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() =>
+                          this.onSearchLike(each.postId, each.isLiked)
+                        }
+                        aria-label="Search"
+                        type="button"
+                        testid="likeIcon"
+                        className="icons-button"
+                      >
+                        <BsHeart />{' '}
+                      </button>
+                    )}
 
-                <button
-                  aria-label="Search"
-                  type="button"
-                  data-test-id="unLikeIcon"
-                  className="icons-button"
-                >
-                  <FaRegComment />
-                </button>
-                <button
-                  aria-label="Search"
-                  type="button"
-                  className="icons-button"
-                >
-                  <BiShareAlt />
-                </button>
-              </div>
-              <p className="likes-count">{each.likesCount} likes</p>
-              <p className="post-caption">{postDetails.caption}</p>
-              <p className="comment">
-                <span className="username">{comments[0].user_name}</span>
-                {comments[0].comment}
-              </p>
-              <p className="comment">
-                <span className="username">{comments[1].user_name}</span>
-                {comments[1].comment}
-              </p>
-              <p className="date">{each.createdAt}</p>
-            </div>
-          )
-        })}
+                    <button
+                      aria-label="Search"
+                      type="button"
+                      data-test-id="unLikeIcon"
+                      className="icons-button"
+                    >
+                      <FaRegComment />
+                    </button>
+                    <button
+                      aria-label="Search"
+                      type="button"
+                      className="icons-button"
+                    >
+                      <BiShareAlt />
+                    </button>
+                  </div>
+                  <p className="likes-count">{each.likesCount} likes</p>
+                  <p className="post-caption">{postDetails.caption}</p>
+                  <p className="comment">
+                    <span className="username">{comments[0].user_name}</span>
+                    {comments[0].comment}
+                  </p>
+                  <p className="comment">
+                    <span className="username">{comments[1].user_name}</span>
+                    {comments[1].comment}
+                  </p>
+                  <p className="date">{each.createdAt}</p>
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          this.noSearchResultview()
+        )}
       </div>
-    ) : (
-      this.noSearchResultview()
     )
   }
 

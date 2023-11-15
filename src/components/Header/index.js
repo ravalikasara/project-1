@@ -16,6 +16,12 @@ class Header extends Component {
     this.setState({searchInput: event.target.value})
   }
 
+  setLogout = () => {
+    Cookies.remove('jwt_token')
+    const {history} = this.props
+    history.replace('/login')
+  }
+
   render() {
     const {searchInput} = this.state
 
@@ -23,11 +29,7 @@ class Header extends Component {
       <InstaContext.Consumer>
         {value => {
           const {onSearchClick} = value
-          const setLogout = () => {
-            Cookies.remove('jwt_token')
-            const {history} = this.props
-            history.replace('/login')
-          }
+
           const onSearchPress = () => {
             onSearchClick(searchInput)
           }
@@ -73,14 +75,14 @@ class Header extends Component {
                         <h1 className="headers-home">Home</h1>
                       </li>
                     </Link>
-                    <Link className="header-link" to="/my-profile">
+                    <Link to="/my-profile">
                       <li key="profile" className="header-lists">
                         <h1 className="headers-profile">Profile</h1>
                       </li>
                     </Link>
                     <li key="logout" className="header-lists">
                       <button
-                        onClick={setLogout}
+                        onClick={this.setLogout}
                         type="button"
                         className="headers-logout"
                       >

@@ -1,6 +1,7 @@
 import {Component} from 'react'
 
 import {BsGrid3X3} from 'react-icons/bs'
+import {BiCamera} from 'react-icons/bi'
 
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
@@ -13,7 +14,7 @@ import InstaContext from '../../Context/InstaContext'
 import './index.css'
 
 class MyProfile extends Component {
-  state = {status: 'INITIAL', profileData: []}
+  state = {status: 'INITIAL', profileData: {}}
 
   componentDidMount() {
     this.getProfileData()
@@ -55,18 +56,15 @@ class MyProfile extends Component {
   }
 
   renderProfileLoading = () => (
-    <div className="profile-loader-container" testid="loader">
+    <div testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
 
   renderNoPostsView = () => (
-    <div className="profile-no-posts">
-      <img
-        src="https://res.cloudinary.com/du6aueulp/image/upload/v1699935379/uve9qurerje4wxpjaly0.png"
-        alt="no posts"
-        className="no-post-image"
-      />
+    <div>
+      <BiCamera />
+      <h1>No Posts</h1>
     </div>
   )
 
@@ -109,14 +107,14 @@ class MyProfile extends Component {
                 {profileData.followingCount} following
               </h1>
             </div>
-            <h1 className="profile-post-count">{profileData.username}</h1>
+            <p className="profile-post-count">{profileData.userId}</p>
             <p className="profile-post-bio">{profileData.userBio}</p>
           </div>
         </div>
 
         <ul className="profile-stories-card">
           {profileData.stories.map(each => (
-            <li key={each.userId} className="profile-story">
+            <li key={each.id} className="profile-story">
               <img
                 src={each.image}
                 alt="my story"
@@ -131,11 +129,11 @@ class MyProfile extends Component {
             <BsGrid3X3 className="posts-grid" />
           </div>
           <h1 className="posts-top-post">Posts</h1>
-        </div>
 
-        {profileData.postsCount > 0
-          ? this.renderPostView()
-          : this.renderNoPostsView()}
+          {profileData.postsCount > 0
+            ? this.renderPostView()
+            : this.renderNoPostsView()}
+        </div>
       </div>
     )
   }
@@ -147,12 +145,8 @@ class MyProfile extends Component {
         alt="failure view"
         className="failure-img"
       />
-      <h1 className="failure-text">Something went wrong. Please try again</h1>
-      <button
-        type="button"
-        onClick={this.getProfileData}
-        className="retry-button"
-      >
+      <p className="failure-text">Something went wrong. Please try again</p>
+      <button type="button" onClick={this.getProfileData}>
         Try Again
       </button>
     </div>

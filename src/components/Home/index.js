@@ -184,31 +184,19 @@ class Home extends Component {
     const {posts} = this.state
     const newData = posts.map(each => {
       if (each.postId === pid) {
-        if (likeStatus) {
-          return {
-            comments: each.comments,
-            createdAt: each.createdAt,
-            likesCount: each.likesCount - 1,
-            postDetails: each.postDetails,
-            postId: each.postId,
-            profilePic: each.profilePic,
-            userId: each.userId,
-            username: each.username,
-            isLiked: false,
-          }
-        }
         return {
           comments: each.comments,
           createdAt: each.createdAt,
-          likesCount: each.likesCount + 1,
+          likesCount: likeStatus ? each.likesCount - 1 : each.likesCount + 1,
           postDetails: each.postDetails,
           postId: each.postId,
           profilePic: each.profilePic,
           userId: each.userId,
           username: each.username,
-          isLiked: true,
+          isLiked: !likeStatus,
         }
       }
+
       return each
     })
     this.setState({posts: newData})
@@ -261,7 +249,7 @@ class Home extends Component {
                 {each.isLiked ? (
                   <button
                     onClick={() => this.onLike(each.postId, each.likeStatus)}
-                    aria-label="Search"
+                    label="l"
                     type="button"
                     testid="unLikeIcon"
                     className="icons-button"
@@ -270,8 +258,8 @@ class Home extends Component {
                   </button>
                 ) : (
                   <button
+                    label="m"
                     onClick={() => this.onLike(each.postId, each.likeStatus)}
-                    aria-label="Search"
                     type="button"
                     testid="likeIcon"
                     className="icons-button"

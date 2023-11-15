@@ -2,6 +2,8 @@ import {Component} from 'react'
 
 import {BsGrid3X3} from 'react-icons/bs'
 
+import {BiCamera} from 'react-icons/bi'
+
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import Header from '../Header'
@@ -13,7 +15,7 @@ import SearchResult from '../SearchResult'
 import './index.css'
 
 class UserProfile extends Component {
-  state = {status: 'INITIAL', userData: []}
+  state = {status: 'INITIAL', userData: {}}
 
   componentDidMount() {
     this.getUserData()
@@ -65,11 +67,8 @@ class UserProfile extends Component {
 
   renderUserNoPostsView = () => (
     <div className="user-profile-no-posts">
-      <img
-        src="https://res.cloudinary.com/du6aueulp/image/upload/v1699935379/uve9qurerje4wxpjaly0.png"
-        alt="no posts"
-        className="user-no-post-image"
-      />
+      <BiCamera />
+      <h1>No Posts</h1>
     </div>
   )
 
@@ -112,14 +111,14 @@ class UserProfile extends Component {
                 {userData.followingCount} following
               </h1>
             </div>
-            <h1 className="user-profile-post-count">{userData.username}</h1>
+            <h1 className="user-profile-post-count">{userData.userId}</h1>
             <p className="user-profile-post-bio">{userData.userBio}</p>
           </div>
         </div>
 
         <ul className="user-profile-stories-card">
           {userData.stories.map(each => (
-            <li key={each.userId} className="user-profile-story">
+            <li key={each.id} className="user-profile-story">
               <img
                 src={each.image}
                 alt="user story"
@@ -133,7 +132,7 @@ class UserProfile extends Component {
           <div>
             <BsGrid3X3 className="user-posts-grid" />
           </div>
-          <h1 className="user-posts-top-post">Posts</h1>
+          <h1>Posts</h1>
         </div>
 
         {userData.postsCount > 0
@@ -150,12 +149,8 @@ class UserProfile extends Component {
         alt="failure view"
         className="failure-img"
       />
-      <h1 className="failure-text">Something went wrong. Please try again</h1>
-      <button
-        type="button"
-        onClick={this.getProfileData}
-        className="retry-button"
-      >
+      <p>Something went wrong. Please try again</p>
+      <button type="button" onClick={this.userData}>
         Try Again
       </button>
     </div>
