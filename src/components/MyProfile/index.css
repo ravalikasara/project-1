@@ -1,0 +1,129 @@
+.profile-container {
+  display: flex;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+.profile-loader-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-success-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 150px;
+}
+.profile-details-container {
+  display: flex;
+  margin-bottom: 30px;
+}
+.profile-image {
+  width: 180px;
+  height: 180px;
+  margin-right: 50px;
+
+  border-radius: 90px;
+}
+.profile-name {
+  font-family: Roboto;
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 32px;
+  letter-spacing: 0em;
+  text-align: left;
+
+  margin: 20px;
+  height: 32px;
+}
+.profile-following-card {
+  display: flex;
+  justify-content: space-evenly;
+}
+.profile-post-count {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 20px;
+}
+.profile-post-bio {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0px 20px;
+}
+.profile-stories-card {
+  display: flex;
+
+  padding: 0px;
+}
+.profile-story {
+  list-style-type: none;
+  margin: 0px 20px;
+}
+.profile-story-img {
+  outline: 3.5px solid rgba(219, 219, 219, 1);
+  width: 86px;
+  border: 2px solid white;
+  height: 86px;
+
+  border-radius: 40px;
+}
+.profile-hr-line {
+  border: 0.5px solid rgba(198, 198, 200, 1);
+  background: rgba(198, 198, 200, 1);
+  width: 1040px;
+  height: 1px;
+}
+.posts-top-card {
+  margin-top: 20px;
+  display: flex;
+}
+.posts-top-post {
+  margin-left: 13px;
+  margin-top: 0px;
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.posts-grid {
+  margin-top: 8px;
+}
+.no-post-image {
+  width: 182px;
+  height: 150px;
+}
+.profile-no-posts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-posts-container {
+  display: flex;
+  margin: 0px;
+}
+.profile-post-card {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px;
+}
+.post-list {
+  list-style-type: none;
+  margin: 0px;
+}
+.post-image {
+  width: 250px;
+  height: 250px;
+  margin: 0px 20px;
+}
