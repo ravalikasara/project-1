@@ -61,13 +61,6 @@ class MyProfile extends Component {
     </div>
   )
 
-  renderNoPostsView = () => (
-    <div>
-      <BiCamera />
-      <h1>No Posts</h1>
-    </div>
-  )
-
   renderPostView = () => {
     const {profileData} = this.state
     const {posts} = profileData
@@ -83,8 +76,16 @@ class MyProfile extends Component {
     )
   }
 
+  noPostsView = () => (
+    <>
+      <BiCamera />
+      <h1>No Posts Yet</h1>
+    </>
+  )
+
   renderProfileSuccessView = () => {
     const {profileData} = this.state
+    const {postsCount} = profileData
 
     return (
       <div className="profile-success-container">
@@ -97,18 +98,18 @@ class MyProfile extends Component {
           <div>
             <h1 className="profile-name">{profileData.username}</h1>
             <div className="profile-following-card">
-              <h1 className="profile-post-count">
+              <p className="profile-post-count">
                 {profileData.postsCount} posts
-              </h1>
-              <h1 className="profile-post-count">
+              </p>
+              <p className="profile-post-count">
                 {profileData.followersCount} followers
-              </h1>
-              <h1 className="profile-post-count">
+              </p>
+              <p className="profile-post-count">
                 {profileData.followingCount} following
-              </h1>
+              </p>
             </div>
-            <p className="profile-post-count">{profileData.userId}</p>
-            <p className="profile-post-bio">{profileData.userBio}</p>
+            <h1 className="profile-post-count">{profileData.userId}</h1>
+            <h1 className="profile-post-bio">{profileData.userBio}</h1>
           </div>
         </div>
 
@@ -130,9 +131,9 @@ class MyProfile extends Component {
           </div>
           <h1 className="posts-top-post">Posts</h1>
 
-          {profileData.postsCount > 0
-            ? this.renderPostView()
-            : this.renderNoPostsView()}
+          {postsCount > 0 && this.renderPostView()}
+
+          {this.noPostsView()}
         </div>
       </div>
     )

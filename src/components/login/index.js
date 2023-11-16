@@ -9,11 +9,12 @@ class Login extends Component {
   state = {username: '', password: '', showSubmitError: false, errorMsg: ''}
 
   onSubmitSuccess = jwtToken => {
+    const {history} = this.props
     Cookies.set('jwt_token', jwtToken, {
       expires: 30,
       path: '/',
     })
-    const {history} = this.props
+
     history.replace('/')
   }
 

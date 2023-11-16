@@ -236,7 +236,6 @@ class Home extends Component {
                   alt="post author profile"
                 />
                 <Link className="link-profile" to={`/users/${each.userId}`}>
-                  {' '}
                   <p className="name">{each.username}</p>
                 </Link>
               </div>

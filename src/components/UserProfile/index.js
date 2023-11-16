@@ -60,7 +60,7 @@ class UserProfile extends Component {
   }
 
   renderUserProfileLoading = () => (
-    <div className="user-profile-loader-container" testid="loader">
+    <div testid="loader">
       <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
     </div>
   )
@@ -68,7 +68,7 @@ class UserProfile extends Component {
   renderUserNoPostsView = () => (
     <div className="user-profile-no-posts">
       <BiCamera />
-      <h1>No Posts</h1>
+      <h1>No Posts Yet</h1>
     </div>
   )
 
@@ -101,17 +101,17 @@ class UserProfile extends Component {
           <div>
             <h1 className="user-profile-name">{userData.username}</h1>
             <div className="user-profile-following-card">
-              <h1 className="user-profile-post-count">
+              <p className="user-profile-post-count">
                 {userData.postsCount} posts
-              </h1>
-              <h1 className="user-profile-post-count">
+              </p>
+              <p className="user-profile-post-count">
                 {userData.followersCount} followers
-              </h1>
-              <h1 className="user-profile-post-count">
+              </p>
+              <p className="user-profile-post-count">
                 {userData.followingCount} following
-              </h1>
+              </p>
             </div>
-            <h1 className="user-profile-post-count">{userData.userId}</h1>
+            <p className="user-profile-post-count">{userData.userId}</p>
             <p className="user-profile-post-bio">{userData.userBio}</p>
           </div>
         </div>
@@ -131,26 +131,28 @@ class UserProfile extends Component {
         <div className="user-posts-top-card">
           <div>
             <BsGrid3X3 className="user-posts-grid" />
+            <h1>Posts</h1>
           </div>
-          <h1>Posts</h1>
         </div>
 
-        {userData.postsCount > 0
-          ? this.renderUserPostView()
-          : this.renderUserNoPostsView()}
+        {userData.postsCount > 0 && this.renderUserPostView()}
+
+        <BiCamera />
+
+        <h1>No Posts Yet</h1>
       </div>
     )
   }
 
   renderUserProfileFailureView = () => (
-    <div className="failure-container">
+    <div>
       <img
         src="https://res.cloudinary.com/du6aueulp/image/upload/v1699689961/tgr3k1fh3luixvqn37n4.png"
         alt="failure view"
         className="failure-img"
       />
       <p>Something went wrong. Please try again</p>
-      <button type="button" onClick={this.userData}>
+      <button type="button" onClick={this.getUserData}>
         Try Again
       </button>
     </div>

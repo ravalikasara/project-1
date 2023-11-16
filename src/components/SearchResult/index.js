@@ -1,10 +1,9 @@
 import {Component} from 'react'
+import {Link, withRouter} from 'react-router-dom'
 
 import Loader from 'react-loader-spinner'
 
 import Cookies from 'js-cookie'
-
-import {Link} from 'react-router-dom'
 
 import {BsHeart} from 'react-icons/bs'
 import {BiShareAlt} from 'react-icons/bi'
@@ -70,7 +69,7 @@ class SearchResult extends Component {
   )
 
   renderSearchResultFailureView = () => (
-    <div className="failure-container">
+    <div>
       <img
         src="https://res.cloudinary.com/du6aueulp/image/upload/v1699689961/tgr3k1fh3luixvqn37n4.png"
         alt="failure view"
@@ -167,7 +166,7 @@ class SearchResult extends Component {
                       src={each.profilePic}
                       alt="post author profile"
                     />
-                    <Link to={`/users/${each.userId}`}>
+                    <Link className="link-profile" to={`/users/${each.userId}`}>
                       <p className="name">{each.username}</p>
                     </Link>
                   </div>
@@ -273,4 +272,4 @@ class SearchResult extends Component {
 
 SearchResult.contextType = InstaContext
 
-export default SearchResult
+export default withRouter(SearchResult)
